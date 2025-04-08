@@ -76,11 +76,11 @@ export default function Home() {
       <main className="max-w-4xl mx-auto w-full py-4 px-3 md:py-8 flex-grow flex flex-col">
         <div className="text-center mb-6">
           <h1 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
-            Enterprise AI Quote Generator
+            Inspirational AI Quote Generator
           </h1>
           <p className="text-gray-600 text-sm max-w-xl mx-auto">
-            Leverage artificial intelligence to generate inspirational quotes
-            for your business communications.
+            Leverage artificial intelligence to generate uplifting quotes
+            to inspire and motivate you every day.
           </p>
         </div>
 
@@ -105,7 +105,7 @@ export default function Home() {
             <Sparkles className="mr-2 h-4 w-4" />
             {isPending || isGenerating
               ? "Generating..."
-              : "Generate Enterprise Quote"}
+              : "Generate Inspirational Quote"}
           </Button>
           <p className="mt-2 text-xs text-gray-500">
             Powered by advanced AI language models via n8n

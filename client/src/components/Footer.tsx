@@ -13,24 +13,24 @@ export default function Footer() {
               <h3 className="text-sm font-bold">QuoteIQ</h3>
             </div>
             <p className="text-slate-400 text-[10px]">
-              Enterprise-grade AI quote generation for professional business communications.
+              Inspirational AI quote generation to motivate and enlighten your day.
             </p>
           </div>
           
           <div className="hidden md:block">
-            <h4 className="text-[10px] font-semibold uppercase tracking-wider text-slate-300 mb-2">Solutions</h4>
+            <h4 className="text-[10px] font-semibold uppercase tracking-wider text-slate-300 mb-2">Categories</h4>
             <ul className="space-y-1 text-slate-400 text-[10px]">
               <li className="flex items-center">
                 <ChevronRight className="h-2 w-2 mr-1" />
-                <span>Enterprise Quotes</span>
+                <span>Motivational Quotes</span>
               </li>
               <li className="flex items-center">
                 <ChevronRight className="h-2 w-2 mr-1" />
-                <span>Content Automation</span>
+                <span>Daily Inspiration</span>
               </li>
               <li className="flex items-center">
                 <ChevronRight className="h-2 w-2 mr-1" />
-                <span>Team Integration</span>
+                <span>Personal Growth</span>
               </li>
             </ul>
           </div>
@@ -48,7 +48,7 @@ export default function Footer() {
         
         <div className="pt-3 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-slate-400 text-[10px]">
-            © {new Date().getFullYear()} QuoteIQ Enterprise Solutions. All rights reserved.
+            © {new Date().getFullYear()} QuoteIQ Inspirational Quotes. All rights reserved.
           </p>
           <p className="text-slate-500 text-[10px] mt-1 md:mt-0">
             All quotes are AI-generated and may not reflect real people or organizations.

@@ -36,7 +36,7 @@ export default function RecentQuotes({ quotes }: RecentQuotesProps) {
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-800">Quote History</h3>
-            <p className="text-[10px] font-normal text-slate-500 mt-0.5">Previously generated enterprise quotes</p>
+            <p className="text-[10px] font-normal text-slate-500 mt-0.5">Previously generated inspirational quotes</p>
           </div>
         </CardTitle>
       </CardHeader>

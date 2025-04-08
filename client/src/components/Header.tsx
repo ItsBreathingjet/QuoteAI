@@ -10,7 +10,7 @@ export default function Header() {
           </div>
           <div>
             <h1 className="text-lg font-bold text-gray-900">QuoteIQ</h1>
-            <p className="text-[10px] text-gray-500">Enterprise Quote Solutions</p>
+            <p className="text-[10px] text-gray-500">Inspirational Quote Generator</p>
           </div>
         </div>
         <div className="hidden md:flex items-center space-x-5 text-xs font-medium text-gray-600">
@@ -20,11 +20,11 @@ export default function Header() {
           </div>
           <div className="flex items-center space-x-1">
             <LightbulbIcon className="text-primary h-3 w-3" />
-            <span>Solutions</span>
+            <span>Wisdom</span>
           </div>
           <div className="flex items-center space-x-1">
             <Sparkles className="text-primary h-3 w-3" />
-            <span>Enterprise</span>
+            <span>Inspiration</span>
           </div>
         </div>
         <div className="flex items-center space-x-1">
