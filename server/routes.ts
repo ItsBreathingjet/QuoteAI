@@ -39,36 +39,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // N8N webhook URL for quote generation
       const webhookUrl = "https://rmayerhofer.app.n8n.cloud/webhook/ITSC4010";
       
-      console.log('Calling n8n webhook from server...');
+      // Get recent quotes to check for duplicates
+      const recentQuotes = await storage.getRecentQuotes(10);
+      let attempts = 0;
+      let isUnique = false;
+      let quoteText = "";
+      let quoteAuthor = "";
       
-      // Call the n8n webhook from the server side to avoid CORS issues
-      const response = await fetch(webhookUrl, {
-        method: "GET", // Changed to GET since that's what works in the browser
-        headers: {
-          "Accept": "application/json",
+      // Try up to 3 times to get a unique quote
+      while (!isUnique && attempts < 3) {
+        console.log(`Calling n8n webhook from server... (attempt ${attempts + 1})`);
+        
+        // Call the n8n webhook from the server side to avoid CORS issues
+        const response = await fetch(webhookUrl, {
+          method: "GET", // Changed to GET since that's what works in the browser
+          headers: {
+            "Accept": "application/json",
+          }
+        });
+
+        if (!response.ok) {
+          console.error(`N8n webhook error: HTTP ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      });
 
-      if (!response.ok) {
-        console.error(`N8n webhook error: HTTP ${response.status}`);
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // Parse the webhook response
+        const responseData = await response.json();
+        // Create a safe object with our expected interface
+        const data = {
+          text: typeof responseData === 'object' && responseData !== null ? (responseData as any).text : undefined,
+          content: typeof responseData === 'object' && responseData !== null ? (responseData as any).content : undefined, 
+          quote: typeof responseData === 'object' && responseData !== null ? (responseData as any).quote : undefined,
+          author: typeof responseData === 'object' && responseData !== null ? (responseData as any).author : undefined,
+          by: typeof responseData === 'object' && responseData !== null ? (responseData as any).by : undefined
+        };
+        console.log('Received response from n8n:', data);
+        
+        // Extract quote information from the webhook response
+        quoteText = data?.text || data?.content || data?.quote || "Wisdom comes from experience and reflection.";
+        quoteAuthor = data?.author || data?.by || "AI Wisdom";
+        
+        // Check if this quote text already exists in recent quotes
+        const isDuplicate = recentQuotes.some(q => q.text === quoteText);
+        
+        if (!isDuplicate) {
+          isUnique = true;
+        } else {
+          console.log('Duplicate quote detected, trying again...');
+          attempts++;
+          // Short delay before trying again
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
       }
-
-      // Parse the webhook response
-      const responseData = await response.json();
-      // Create a safe object with our expected interface
-      const data = {
-        text: typeof responseData === 'object' && responseData !== null ? responseData.text : undefined,
-        content: typeof responseData === 'object' && responseData !== null ? responseData.content : undefined,
-        quote: typeof responseData === 'object' && responseData !== null ? responseData.quote : undefined,
-        author: typeof responseData === 'object' && responseData !== null ? responseData.author : undefined,
-        by: typeof responseData === 'object' && responseData !== null ? responseData.by : undefined
-      };
-      console.log('Received response from n8n:', data);
       
-      // Extract quote information from the webhook response
-      const quoteText = data?.text || data?.content || data?.quote || "Wisdom comes from experience and reflection.";
-      const quoteAuthor = data?.author || data?.by || "AI Wisdom";
+      // If we couldn't get a unique quote after max attempts, just use the last one we got
+      if (!isUnique) {
+        console.log('Could not get unique quote after max attempts, using latest result');
+      }
       
       // Save the quote in our storage
       const newQuote = await storage.saveQuote({ 

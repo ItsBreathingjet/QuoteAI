@@ -7,13 +7,24 @@ interface RecentQuotesProps {
 }
 
 export default function RecentQuotes({ quotes }: RecentQuotesProps) {
-  const formatDate = (dateString: string) => {
+  const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      month: 'long', 
+    
+    // Format date part
+    const formattedDate = date.toLocaleDateString('en-US', { 
+      month: 'short', 
       day: 'numeric', 
       year: 'numeric' 
     });
+    
+    // Format time part
+    const formattedTime = date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+    
+    return `${formattedDate} at ${formattedTime}`;
   };
   
   return (
@@ -42,7 +53,7 @@ export default function RecentQuotes({ quotes }: RecentQuotesProps) {
                     <div className="flex items-center space-x-2">
                       <ClockIcon className="h-4 w-4 text-slate-400" />
                       <span className="text-xs font-medium text-slate-500">
-                        {formatDate(String(quote.createdAt))}
+                        {formatDateTime(String(quote.createdAt))}
                       </span>
                     </div>
                     <div className="bg-slate-100 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
