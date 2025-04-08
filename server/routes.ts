@@ -36,6 +36,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // New endpoint to save quotes from the n8n webhook
+  app.post('/api/quote/save', async (req, res) => {
+    try {
+      const { text, author } = req.body;
+      
+      if (!text || !author) {
+        return res.status(400).json({ message: 'Text and author are required' });
+      }
+      
+      const newQuote = await storage.saveQuote({ text, author });
+      res.json(newQuote);
+    } catch (error) {
+      console.error('Error saving quote:', error);
+      res.status(500).json({ message: 'Failed to save quote' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
