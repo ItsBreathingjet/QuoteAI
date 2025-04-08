@@ -73,19 +73,19 @@ export default function Home() {
     <div className="bg-gradient-to-b from-gray-50 to-slate-100 min-h-screen font-sans text-gray-800 flex flex-col">
       <Header />
 
-      <main className="max-w-5xl mx-auto w-full py-8 px-4 md:py-16 flex-grow flex flex-col">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+      <main className="max-w-4xl mx-auto w-full py-4 px-3 md:py-8 flex-grow flex flex-col">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
             Enterprise AI Quote Generator
           </h1>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-600 text-sm max-w-xl mx-auto">
             Leverage artificial intelligence to generate inspirational quotes
             for your business communications.
           </p>
         </div>
 
         {/* Quote Display - positioned ABOVE the button */}
-        <div className="order-1 mb-12">
+        <div className="order-1 mb-6">
           <QuoteDisplay
             quote={currentQuote}
             isLoading={isPending || isGenerating}
@@ -95,24 +95,24 @@ export default function Home() {
         </div>
 
         {/* Action Button - positioned BELOW the quote */}
-        <div className="order-2 flex flex-col items-center justify-center mb-12">
+        <div className="order-2 flex flex-col items-center justify-center mb-6">
           <Button
             onClick={() => generateQuote()}
             disabled={isPending || isGenerating}
-            size="lg"
-            className="px-10 py-6 text-lg h-auto transition-all duration-300 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary shadow-lg hover:shadow-xl hover:-translate-y-1"
+            size="default"
+            className="px-6 py-2 text-sm h-auto transition-all duration-300 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary shadow-md hover:shadow-lg hover:-translate-y-0.5"
           >
-            <Sparkles className="mr-2 h-5 w-5" />
+            <Sparkles className="mr-2 h-4 w-4" />
             {isPending || isGenerating
               ? "Generating..."
               : "Generate Enterprise Quote"}
           </Button>
-          <p className="mt-3 text-sm text-gray-500">
+          <p className="mt-2 text-xs text-gray-500">
             Powered by advanced AI language models via n8n
           </p>
         </div>
 
-        <div className="order-3 mt-8">
+        <div className="order-3 mt-4">
           <RecentQuotes quotes={recentQuotes || []} />
         </div>
       </main>
